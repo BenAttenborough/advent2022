@@ -1,12 +1,12 @@
 const util = require("../helpers/io");
 let result = util.readFile(__dirname, 'input.txt');
 result.then((data) => {
-    let answer = main(data);
+    let answer = two(data);
     console.log(answer);
 }, (err) => {
     console.log(err);
 });
-function main(input) {
+function one(input) {
     return input
         .split("\n\n")
         .map(x => x.split("\n"))
@@ -16,6 +16,20 @@ function main(input) {
     }, 0))
         .reduce((prev, next) => {
         return (next > prev) ? next : prev;
+    }, 0);
+}
+function two(input) {
+    return input
+        .split("\n\n")
+        .map(x => x.split("\n"))
+        .map(val => val.map(x => { return parseInt(x); }))
+        .map(val => val.reduce((prev, next) => {
+        return prev + next;
+    }, 0))
+        .sort((a, b) => b - a)
+        .splice(0, 3)
+        .reduce((prev, next) => {
+        return prev + next;
     }, 0);
 }
 //# sourceMappingURL=one.js.map
