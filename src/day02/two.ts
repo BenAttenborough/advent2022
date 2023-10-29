@@ -1,39 +1,56 @@
-const util2 = require("../helpers/io");
+module.exports = class Day02 {
+  partOne(input: string): number {
+    return input
+      .split("\n")
+      .map(line => {
+        let [attack, defence] = [convertAttack(line[0]), convertDefence(line[2])];
+        return scoreForDefence(defence) + resultScore(attack, defence);
+      })
+      .reduce((prev, next) => prev + next, 0);
+  };
 
-let resultTwo = util2.readFile(__dirname, "input.txt");
-resultTwo.then(
-  (data) => {
-    let answer = dayTwoPartTwo(data);
-    console.log(answer);
-  },
-  (err) => {
-    console.log(err);
-  }
-);
+  partTwo(input: string): number {
+    return input
+      .split("\n")
+      .map(line => {
+        let [attack, desiredResult] = [convertAttack(line[0]), convertResult(line[2])];
+        let defence = defenceRequiredForDesiredResult(attack, desiredResult);
+        return scoreForDefence(defence) + resultScore(attack, defence);
+      })
+      .reduce((prev, next) => prev + next, 0);
+  };
+}
+
+
+
 
 type Attack = "ROCK" | "PAPER" | "SCISSORS";
 type Result = "LOOSE" | "DRAW" | "WIN";
 
-function dayTwoPartOne(input: string): number {
-  return input
-    .split("\n")
-    .map(line => {
-      let [attack, defence] = [convertAttack(line[0]), convertDefence(line[2])];
-      return scoreForDefence(defence) + resultScore(attack, defence);
-    })
-    .reduce((prev, next) => prev + next, 0);
-};
+// class Day02 {
+//   partOne(input: string): number {
+//     return input
+//       .split("\n")
+//       .map(line => {
+//         let [attack, defence] = [convertAttack(line[0]), convertDefence(line[2])];
+//         return scoreForDefence(defence) + resultScore(attack, defence);
+//       })
+//       .reduce((prev, next) => prev + next, 0);
+//   };
 
-function dayTwoPartTwo(input: string): number {
-  return input
-    .split("\n")
-    .map(line => {
-      let [attack, desiredResult] = [convertAttack(line[0]), convertResult(line[2])];
-      let defence = defenceRequiredForDesiredResult(attack, desiredResult);
-      return scoreForDefence(defence) + resultScore(attack, defence);
-    })
-    .reduce((prev, next) => prev + next, 0);
-};
+//   partTwo(input: string): number {
+//     return input
+//       .split("\n")
+//       .map(line => {
+//         let [attack, desiredResult] = [convertAttack(line[0]), convertResult(line[2])];
+//         let defence = defenceRequiredForDesiredResult(attack, desiredResult);
+//         return scoreForDefence(defence) + resultScore(attack, defence);
+//       })
+//       .reduce((prev, next) => prev + next, 0);
+//   };
+// }
+
+
 
 function scoreForDefence(defence: Attack): number {
   switch (defence) {
