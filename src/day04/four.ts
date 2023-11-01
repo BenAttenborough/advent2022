@@ -33,7 +33,7 @@ type sectionRange =
 function rangesOverlap(): (value: sectionRange[]) => 1 | 0 {
     return function (range) {
         if ((range[0].start >= range[1].start && range[0].start <= range[1].end) ||
-            (range[0].start <= range[1].start && range[0].end >= range[1].end)) {
+            (range[1].start >= range[0].start && range[1].start <= range[0].end)) {
             return 1;
         } else {
             return 0;

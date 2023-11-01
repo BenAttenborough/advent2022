@@ -25,7 +25,7 @@ module.exports = class Day04 {
 function rangesOverlap() {
     return function (range) {
         if ((range[0].start >= range[1].start && range[0].start <= range[1].end) ||
-            (range[0].start <= range[1].start && range[0].end >= range[1].end)) {
+            (range[1].start >= range[0].start && range[1].start <= range[0].end)) {
             return 1;
         }
         else {
