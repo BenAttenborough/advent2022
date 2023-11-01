@@ -13,7 +13,7 @@ let result = util.readFile(__dirname + "/day04/", "testinput.txt");
 result.then(
   (data) => {
 
-    console.log(day04.partOne(data));
+    console.log(day04.partTwo(data));
   },
   (err) => {
     console.log(err);
