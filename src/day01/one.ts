@@ -1,8 +1,13 @@
-module.exports = class Day01 {
+import { lines } from "../../helpers/parse.js";
+
+export class Day01 {
+
     partOne(input: string): number {
+        // parse.hello();
+
         return input
             .split("\n\n")
-            .map(x => x.split("\n"))
+            .map(lines)
             .map(val => val.map(x => { return parseInt(x) }))
             .map(val => val.reduce((prev, next) => {
                 return prev + next;

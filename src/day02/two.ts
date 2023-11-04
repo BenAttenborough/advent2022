@@ -1,3 +1,5 @@
+
+
 module.exports = class Day02 {
   partOne(input: string): number {
     return input

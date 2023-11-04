@@ -1,11 +1,19 @@
-const fs = require('fs');
-const fsPromises = require('fs').promises;
-const path = require('path');
-exports.readFile = async (dir, file) => {
-    let filehandle = await fsPromises.open(path.join(dir, file), 'r');
-    let data = await filehandle.readFile("utf8");
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { open } from 'node:fs/promises';
+import * as path from 'path';
+export const readFile = (dir, file) => __awaiter(void 0, void 0, void 0, function* () {
+    let filehandle = yield open(path.join(dir, file), 'r');
+    let data = yield filehandle.readFile("utf8");
     console.log('Data read successfully');
     filehandle.close();
     return data;
-};
+});
 //# sourceMappingURL=io.js.map

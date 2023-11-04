@@ -1,10 +1,10 @@
-const fs = require('fs');
-const fsPromises = require('fs').promises;
-const path = require('path');
+import { open } from 'node:fs/promises';
+import * as path from 'path';
 
-exports.readFile = async (dir: string, file: string): Promise<string> => {
+
+export const readFile = async (dir: string, file: string): Promise<string> => {
     let filehandle =
-        await fsPromises.open(path.join(dir, file), 'r');
+        await open(path.join(dir, file), 'r');
     let data =
         await filehandle.readFile("utf8");
     console.log('Data read successfully');

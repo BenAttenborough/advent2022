@@ -1,0 +1,15 @@
+{
+  "name": "advent-of-code-ts-2023",
+  "version": "1.0.0",
+  "description": "Ben Attenborough",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsc": "^2.0.4"
+  }
+}

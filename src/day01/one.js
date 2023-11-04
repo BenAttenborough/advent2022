@@ -1,8 +1,13 @@
-module.exports = class Day01 {
+let lineX = (input) => {
+    return input.split("\n");
+};
+export class Day01 {
     partOne(input) {
+        // parse.hello();
         return input
             .split("\n\n")
-            .map(x => x.split("\n"))
+            // .map(parse.lines)
+            .map(lineX)
             .map(val => val.map(x => { return parseInt(x); }))
             .map(val => val.reduce((prev, next) => {
             return prev + next;
@@ -25,5 +30,5 @@ module.exports = class Day01 {
             return prev + next;
         }, 0);
     }
-};
+}
 //# sourceMappingURL=one.js.map

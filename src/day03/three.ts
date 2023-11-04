@@ -55,7 +55,7 @@ function findCommonElement(set1: Set<string>, set2: Set<string>): string {
 }
 
 function getCommonElements(set1: Set<string>, set2: Set<string>, set3: Set<string>): string {
-    let commonElements = new Set<string>;
+    let commonElements = new Set<string>();
     set1.forEach(item => {
         if (set2.has(item)) {
             commonElements.add(item);
