@@ -1,8 +1,8 @@
 import { Utils } from "../helpers/utils.js";
 
-export class Day01 {
+export const Day01 = {
 
-    partOne(input: string): number {
+    partOne: (input: string): number => {
         return input
             .split("\n\n")
             .map(Utils.lines)
@@ -13,9 +13,9 @@ export class Day01 {
             .reduce((prev, next) => {
                 return (next > prev) ? next : prev
             }, 0)
-    }
+    },
 
-    partTwo(input: string): number {
+    partTwo: (input: string): number => {
         return input
             .split("\n\n")
             .map(x => x.split("\n"))
@@ -28,6 +28,11 @@ export class Day01 {
             .reduce((prev, next) => {
                 return prev + next;
             }, 0)
+
+    },
+
+    sum: (a: number, b: number): number => {
+        return a + b;
     }
 }
 

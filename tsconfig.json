@@ -3,6 +3,5 @@
       "target": "ES6",
       "module": "nodenext",
       "sourceMap": true,
-      "outFile": "../dist/app.js",
     },
   }
