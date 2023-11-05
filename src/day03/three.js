@@ -1,4 +1,4 @@
-import { Utils } from "../../helpers/utils.js";
+import { Utils } from "../helpers/utils.js";
 export const Day03 = {
     partOne: (input) => {
         return input

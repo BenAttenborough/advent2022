@@ -52,4 +52,5 @@ function splitValues(values) {
         end: parseInt(splitValues[1])
     };
 }
+export {};
 //# sourceMappingURL=four.js.map

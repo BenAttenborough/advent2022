@@ -1,4 +1,4 @@
-import { Utils } from "../../helpers/utils.js";
+import { Utils } from "../helpers/utils.js";
 export class Day01 {
     partOne(input) {
         return input

@@ -1,4 +1,4 @@
-import { readFile } from "../helpers/io.js";
+import { readFile } from "./helpers/io.js";
 import { Day03 } from "./day03/three.js";
 import * as url from 'url';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));

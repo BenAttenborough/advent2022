@@ -1,4 +1,4 @@
-import { readFile } from "../helpers/io.js";
+import { readFile } from "./helpers/io.js";
 import { Day01 } from "./day01/one.js";
 import { Day02 } from "./day02/two.js";
 import { Day03 } from "./day03/three.js";
