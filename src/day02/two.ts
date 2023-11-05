@@ -1,7 +1,7 @@
+import { Utils } from "../../helpers/utils.js";
 
-
-module.exports = class Day02 {
-  partOne(input: string): number {
+export const Day02 = {
+  partOne: (input: string): number => {
     return input
       .split("\n")
       .map(line => {
@@ -9,9 +9,9 @@ module.exports = class Day02 {
         return scoreForDefence(defence) + resultScore(attack, defence);
       })
       .reduce((prev, next) => prev + next, 0);
-  };
+  },
 
-  partTwo(input: string): number {
+  partTwo: (input: string): number => {
     return input
       .split("\n")
       .map(line => {
@@ -20,7 +20,7 @@ module.exports = class Day02 {
         return scoreForDefence(defence) + resultScore(attack, defence);
       })
       .reduce((prev, next) => prev + next, 0);
-  };
+  }
 }
 
 

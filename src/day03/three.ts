@@ -1,28 +1,21 @@
-module.exports = class Day03 {
-    partOne(input: string): number {
+import { Utils } from "../../helpers/utils.js"
+
+export const Day03 = {
+    partOne: (input: string): number => {
         return input
             .split("\n")
             .map(item => priorityOfCommonElementInString(item))
             .reduce((prev, next) => prev + next, 0);
-    }
+    },
 
-    partTwo(input: string): number {
-        let lines = input.split("\n");
-        let loopcount = lines.length / 3;
-        let container = [];
-        for (let i = 0; i < loopcount; ++i) {
-            container.push(lines.splice(0, 3));
-        }
+    partTwo: (input: string): number => {
+        let lines = Utils.lines(input);
+        let container = Utils.arrayDivideInto(lines, 3);
         return container
             .map(item => getCommonElements(new Set(item[0]), new Set(item[1]), new Set(item[2])))
             .map(item => convertCharCodeToPriority(item.charCodeAt(0))) // Inefficient to map twice
             .reduce((prev, next) => prev + next, 0);
     }
-}
-
-function take3(input: string[]): string[][] {
-    let cutInput = input.splice(0, 3);
-    return [cutInput, input];
 }
 
 function priorityOfCommonElementInString(input: string): number {

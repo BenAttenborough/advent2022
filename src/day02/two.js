@@ -1,5 +1,5 @@
-module.exports = class Day02 {
-    partOne(input) {
+export const Day02 = {
+    partOne: (input) => {
         return input
             .split("\n")
             .map(line => {
@@ -7,9 +7,8 @@ module.exports = class Day02 {
             return scoreForDefence(defence) + resultScore(attack, defence);
         })
             .reduce((prev, next) => prev + next, 0);
-    }
-    ;
-    partTwo(input) {
+    },
+    partTwo: (input) => {
         return input
             .split("\n")
             .map(line => {
@@ -19,7 +18,6 @@ module.exports = class Day02 {
         })
             .reduce((prev, next) => prev + next, 0);
     }
-    ;
 };
 // class Day02 {
 //   partOne(input: string): number {

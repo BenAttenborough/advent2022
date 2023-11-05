@@ -1,13 +1,11 @@
-import { lines } from "../../helpers/parse.js";
+import { Utils } from "../../helpers/utils.js";
 
 export class Day01 {
 
     partOne(input: string): number {
-        // parse.hello();
-
         return input
             .split("\n\n")
-            .map(lines)
+            .map(Utils.lines)
             .map(val => val.map(x => { return parseInt(x) }))
             .map(val => val.reduce((prev, next) => {
                 return prev + next;

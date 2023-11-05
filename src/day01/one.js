@@ -1,13 +1,9 @@
-let lineX = (input) => {
-    return input.split("\n");
-};
+import { Utils } from "../../helpers/utils.js";
 export class Day01 {
     partOne(input) {
-        // parse.hello();
         return input
             .split("\n\n")
-            // .map(parse.lines)
-            .map(lineX)
+            .map(Utils.lines)
             .map(val => val.map(x => { return parseInt(x); }))
             .map(val => val.reduce((prev, next) => {
             return prev + next;
