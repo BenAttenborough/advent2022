@@ -1,5 +1,3 @@
-import { Utils } from "../helpers/utils.js";
-
 export const Day02 = {
   partOne: (input: string): number => {
     return input
@@ -23,36 +21,8 @@ export const Day02 = {
   }
 }
 
-
-
-
 type Attack = "ROCK" | "PAPER" | "SCISSORS";
 type Result = "LOOSE" | "DRAW" | "WIN";
-
-// class Day02 {
-//   partOne(input: string): number {
-//     return input
-//       .split("\n")
-//       .map(line => {
-//         let [attack, defence] = [convertAttack(line[0]), convertDefence(line[2])];
-//         return scoreForDefence(defence) + resultScore(attack, defence);
-//       })
-//       .reduce((prev, next) => prev + next, 0);
-//   };
-
-//   partTwo(input: string): number {
-//     return input
-//       .split("\n")
-//       .map(line => {
-//         let [attack, desiredResult] = [convertAttack(line[0]), convertResult(line[2])];
-//         let defence = defenceRequiredForDesiredResult(attack, desiredResult);
-//         return scoreForDefence(defence) + resultScore(attack, defence);
-//       })
-//       .reduce((prev, next) => prev + next, 0);
-//   };
-// }
-
-
 
 function scoreForDefence(defence: Attack): number {
   switch (defence) {

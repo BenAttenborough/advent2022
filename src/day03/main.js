@@ -50,4 +50,4 @@ function getCommonElements(set1, set2, set3) {
     });
     return findCommonElement(commonElements, set3);
 }
-//# sourceMappingURL=three.js.map
+//# sourceMappingURL=main.js.map

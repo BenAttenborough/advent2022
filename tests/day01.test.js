@@ -1,11 +1,24 @@
-import { Day01 } from "../src/day01/one";
+import { Day01 } from "../src/day01/main";
 
-test("adds 1 + 2 to equal 3", () => {
-  expect(Day01.sum(1, 2)).toBe(3);
+const inputTest = `1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000`;
+
+test("Part one", () => {
+  expect(Day01.partOne(inputTest)).toBe(24000);
 });
 
-// const sum = require("../src/test.js");
-
-// test("adds 1 + 2 to equal 3", () => {
-//   expect(sum(1, 2)).toBe(3);
-// });
+test("Part two", () => {
+  expect(Day01.partTwo(inputTest)).toBe(45000);
+});

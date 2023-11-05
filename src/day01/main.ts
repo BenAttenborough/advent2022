@@ -28,12 +28,5 @@ export const Day01 = {
             .reduce((prev, next) => {
                 return prev + next;
             }, 0)
-
-    },
-
-    sum: (a: number, b: number): number => {
-        return a + b;
     }
 }
-
-

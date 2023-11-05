@@ -25,9 +25,6 @@ export const Day01 = {
             .reduce((prev, next) => {
             return prev + next;
         }, 0);
-    },
-    sum: (a, b) => {
-        return a + b;
     }
 };
-//# sourceMappingURL=one.js.map
+//# sourceMappingURL=main.js.map
