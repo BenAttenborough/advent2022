@@ -1,5 +1,5 @@
-module.exports = class Day04 {
-    partOne(input: string): number {
+export const Day04 = {
+    partOne: (input: string): number => {
         return input
             .split("\n")
             .map(line => {
@@ -9,9 +9,9 @@ module.exports = class Day04 {
             })
             .map(rangeEnclosedByAnother())
             .reduce((prev, next) => prev + next, 0)
-    }
+    },
 
-    partTwo(input: string): number {
+    partTwo: (input: string): number => {
         return input
             .split("\n")
             .map(line => {

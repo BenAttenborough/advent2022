@@ -1,5 +1,5 @@
-module.exports = class Day04 {
-    partOne(input) {
+export const Day04 = {
+    partOne: (input) => {
         return input
             .split("\n")
             .map(line => {
@@ -9,8 +9,8 @@ module.exports = class Day04 {
         })
             .map(rangeEnclosedByAnother())
             .reduce((prev, next) => prev + next, 0);
-    }
-    partTwo(input) {
+    },
+    partTwo: (input) => {
         return input
             .split("\n")
             .map(line => {
@@ -52,5 +52,4 @@ function splitValues(values) {
         end: parseInt(splitValues[1])
     };
 }
-export {};
 //# sourceMappingURL=main.js.map

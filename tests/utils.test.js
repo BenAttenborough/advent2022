@@ -18,3 +18,26 @@ test("arrayGetCommonElements", () => {
 
   expect(Utils.arrayGetCommonElements(set1, set2)).toEqual(["b"]);
 });
+
+test("matrixTransform", () => {
+  let input = [
+    [4, 5, 6],
+    [1, 2, 3],
+  ];
+  expect(Utils.matrixRotateClockwise(input)).toEqual([
+    [1, 2, 3],
+    [4, 5, 6],
+  ]);
+});
+
+test("stringDivideInto", () => {
+  expect(Utils.stringDivideInto("123456789", 3)).toEqual(["123", "456", "789"]);
+});
+
+test("stringDivideInto test 2", () => {
+  expect(Utils.stringDivideInto("[Z] [M] [P] ", 4)).toEqual([
+    "[Z] ",
+    "[M] ",
+    "[P] ",
+  ]);
+});
