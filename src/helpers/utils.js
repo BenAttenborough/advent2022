@@ -29,15 +29,15 @@ export const Utils = {
         return commonElements;
     },
     matrixRotateClockwise: (input) => {
-        let reversedInput = input.reverse();
+        input.reverse();
         let container = [];
-        for (let i = 0; i < reversedInput.length; ++i) {
+        for (let i = 0; i < input[0].length; ++i) {
             container.push([]);
-            for (let j = 0; j < reversedInput[0].length; ++j) {
-                container[i].push(reversedInput[i][j]);
+            for (let j = 0; j < input.length; ++j) {
+                container[i].push(input[j][i]);
             }
         }
         return container;
-    }
+    },
 };
 //# sourceMappingURL=utils.js.map

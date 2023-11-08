@@ -3,36 +3,39 @@ export const Day05 = {
     partOne: (input) => {
         let splitParts = input.split("\n\n");
         let setup = splitParts[0].split("\n");
-        let instructions = splitParts[1].split("\n");
-        // console.log(setup);
-        // console.log(instructions);
-        let setupIndexes = setup[setup.length - 1];
-        // console.log(setupIndexes);
-        let setupLength = parseInt(setupIndexes[setupIndexes.length - 2]);
-        // console.log(setupLength);
+        let instructionStrings = splitParts[1].split("\n");
         setup.pop();
-        console.log(setup);
-        let x = setup
-            .map(line => {
-            line = line.concat(" ");
-            let ins = Utils.stringDivideInto(line, 4);
-            return ins
-                .map(item => {
-                item = item.trim();
-                if (!item) {
-                    return "0";
-                }
-                else {
-                    return item[1];
-                }
-            });
+        let cargo = convertInputToCargo(setup);
+        // console.log(cargo);
+        const instructions = instructionStrings.map(line => {
+            return {
+                amount: parseInt(line[5]),
+                start: parseInt(line[12]),
+                end: parseInt(line[17])
+            };
         });
-        console.log(x);
-        console.log(Utils.matrixRotateClockwise(x.reverse()));
         return 0;
     },
     partTwo: (input) => {
         return 0;
     }
 };
+function convertInputToCargo(input) {
+    let x = input
+        .map(line => {
+        line = line.concat(" ");
+        let ins = Utils.stringDivideInto(line, 4);
+        return ins
+            .map(item => {
+            item = item.trim();
+            if (!item) {
+                return "0";
+            }
+            else {
+                return item[1];
+            }
+        });
+    });
+    return Utils.matrixRotateClockwise(x);
+}
 //# sourceMappingURL=main.js.map

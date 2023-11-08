@@ -1,3 +1,9 @@
+type instruction = {
+    amount: number,
+    start: number,
+    end: number
+}
+
 export const Utils = {
     lines: (input: string): string[] => {
         return input.split("\n");
@@ -33,14 +39,15 @@ export const Utils = {
     },
 
     matrixRotateClockwise: <Type>(input: Type[][]): Type[][] => {
-        let reversedInput = input.reverse();
+        input.reverse();
         let container = [];
-        for (let i = 0; i < reversedInput.length; ++i) {
+        for (let i = 0; i < input[0].length; ++i) {
             container.push([]);
-            for (let j = 0; j < reversedInput[0].length; ++j) {
-                container[i].push(reversedInput[i][j]);
+            for (let j = 0; j < input.length; ++j) {
+                container[i].push(input[j][i]);
             }
         }
         return container;
-    }
+    },
+
 }

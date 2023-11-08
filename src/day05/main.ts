@@ -1,41 +1,28 @@
 import { Utils } from "../helpers/utils.js"
 
+type instruction = {
+    amount: number,
+    start: number,
+    end: number
+}
+
 export const Day05 = {
     partOne: (input: string): number => {
         let splitParts = input.split("\n\n");
         let setup = splitParts[0].split("\n");
-        let instructions = splitParts[1].split("\n");
-        // console.log(setup);
-        // console.log(instructions);
-        let setupIndexes = setup[setup.length - 1]
-        // console.log(setupIndexes);
-        let setupLength = parseInt(setupIndexes[setupIndexes.length - 2]);
-        // console.log(setupLength);
+        let instructionStrings: string[] = splitParts[1].split("\n");
         setup.pop();
-        console.log(setup);
-        let x = setup
-            .map(line => {
-                line = line.concat(" ");
-                let ins = Utils.stringDivideInto(line, 4);
-                return ins
-                    .map(item => {
-                        item = item.trim();
-                        if (!item) {
-                            return "0"
-                        } else {
-                            return item[1];
-                        }
+        let cargo = convertInputToCargo(setup)
 
+        // console.log(cargo);
 
-
-                    });
-            });
-
-
-        console.log(x);
-
-
-        console.log(Utils.matrixRotateClockwise(x.reverse()));
+        const instructions: instruction[] = instructionStrings.map(line => {
+            return {
+                amount: parseInt(line[5]),
+                start: parseInt(line[12]),
+                end: parseInt(line[17])
+            }
+        })
 
 
         return 0;
@@ -44,4 +31,22 @@ export const Day05 = {
     partTwo: (input: string): number => {
         return 0;
     }
+}
+
+function convertInputToCargo(input: string[]): string[][] {
+    let x = input
+        .map(line => {
+            line = line.concat(" ");
+            let ins = Utils.stringDivideInto(line, 4);
+            return ins
+                .map(item => {
+                    item = item.trim();
+                    if (!item) {
+                        return "0"
+                    } else {
+                        return item[1];
+                    }
+                });
+        })
+    return Utils.matrixRotateClockwise(x);
 }

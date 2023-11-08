@@ -19,14 +19,40 @@ test("arrayGetCommonElements", () => {
   expect(Utils.arrayGetCommonElements(set1, set2)).toEqual(["b"]);
 });
 
-test("matrixTransform", () => {
+test("matrixTransform 1", () => {
   let input = [
     [4, 5, 6],
     [1, 2, 3],
   ];
   expect(Utils.matrixRotateClockwise(input)).toEqual([
-    [1, 2, 3],
-    [4, 5, 6],
+    [1, 4],
+    [2, 5],
+    [3, 6],
+  ]);
+});
+
+test("matrixTransform 2", () => {
+  let input = [
+    ["0", "D", "0"],
+    ["N", "C", "0"],
+    ["Z", "M", "P"],
+  ];
+  expect(Utils.matrixRotateClockwise(input)).toEqual([
+    ["Z", "N", "0"],
+    ["M", "C", "D"],
+    ["P", "0", "0"],
+  ]);
+});
+
+test("matrixTransform 3", () => {
+  let input = [
+    [1, 4],
+    [2, 5],
+    [3, 6],
+  ];
+  expect(Utils.matrixRotateClockwise(input)).toEqual([
+    [3, 2, 1],
+    [6, 5, 4],
   ]);
 });
 
