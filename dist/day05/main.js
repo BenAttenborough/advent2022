@@ -1,11 +1,11 @@
 import { Utils } from "../helpers/utils.js";
 export const Day05 = {
     partOne: (input) => {
-        let splitParts = input.split("\n\n");
-        let setup = splitParts[0].split("\n");
+        const splitParts = input.split("\n\n");
+        const setup = splitParts[0].split("\n");
         setup.pop();
-        let cargo = convertInputToCargo(setup);
-        let instructionStrings = splitParts[1].split("\n");
+        const cargo = convertInputToCargo(setup);
+        const instructionStrings = splitParts[1].split("\n");
         const instructions = convertInstructions(instructionStrings);
         console.log("Cargo: ", cargo);
         return 0;
@@ -26,7 +26,7 @@ function convertInstructions(input) {
 }
 ;
 function convertInputToCargo(input) {
-    let x = input
+    const x = input
         .map(line => {
         line = line.concat(" ");
         let ins = Utils.stringDivideInto(line, 4);
@@ -41,7 +41,7 @@ function convertInputToCargo(input) {
             }
         });
     });
-    let unfiltered = Utils.matrixRotateClockwise(x);
+    const unfiltered = Utils.matrixRotateClockwise(x);
     return unfiltered.map(x => {
         return x.filter(value => value !== '0');
     });
