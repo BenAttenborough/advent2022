@@ -10,21 +10,11 @@ export const Day05 = {
     partOne: (input: string): number => {
         let splitParts = input.split("\n\n");
         let setup = splitParts[0].split("\n");
-        let instructionStrings: string[] = splitParts[1].split("\n");
         setup.pop();
         let cargo = convertInputToCargo(setup)
-
-        // console.log(cargo);
-
-        const instructions: instruction[] = instructionStrings.map(line => {
-            return {
-                amount: parseInt(line[5]),
-                start: parseInt(line[12]),
-                end: parseInt(line[17])
-            }
-        })
-
-
+        let instructionStrings: string[] = splitParts[1].split("\n");
+        const instructions: instruction[] = convertInstructions(instructionStrings);
+        console.log("Cargo: ", cargo)
         return 0;
     },
 
@@ -32,6 +22,18 @@ export const Day05 = {
         return 0;
     }
 }
+
+// function runInstructionsOverCargo()
+
+function convertInstructions(input: string[]): instruction[] {
+    return input.map(line => {
+        return {
+            amount: parseInt(line[5]),
+            start: parseInt(line[12]) - 1,
+            end: parseInt(line[17]) - 1
+        }
+    })
+};
 
 function convertInputToCargo(input: string[]): string[][] {
     let x = input
@@ -48,5 +50,8 @@ function convertInputToCargo(input: string[]): string[][] {
                     }
                 });
         })
-    return Utils.matrixRotateClockwise(x);
+    let unfiltered = Utils.matrixRotateClockwise(x);
+    return unfiltered.map(x => {
+        return x.filter(value => value !== '0')
+    })
 }

@@ -10,10 +10,10 @@ move 3 from 1 to 3
 move 2 from 2 to 1
 move 1 from 1 to 2`;
 
-test("Part one", () => {
+test("Day 5 Part 1", () => {
   expect(Day05.partOne(inputTest)).toBe(0);
 });
 
-test("Part two", () => {
+test("Day 5 Part 2", () => {
   expect(Day05.partTwo(inputTest)).toBe(0);
 });

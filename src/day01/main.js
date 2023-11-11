@@ -1,30 +1,32 @@
-import { Utils } from "../helpers/utils.js";
-export const Day01 = {
-    partOne: (input) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Day01 = void 0;
+var utils_js_1 = require("../helpers/utils.js");
+exports.Day01 = {
+    partOne: function (input) {
         return input
             .split("\n\n")
-            .map(Utils.lines)
-            .map(val => val.map(x => { return parseInt(x); }))
-            .map(val => val.reduce((prev, next) => {
+            .map(utils_js_1.Utils.lines)
+            .map(function (val) { return val.map(function (x) { return parseInt(x); }); })
+            .map(function (val) { return val.reduce(function (prev, next) {
             return prev + next;
-        }, 0))
-            .reduce((prev, next) => {
+        }, 0); })
+            .reduce(function (prev, next) {
             return (next > prev) ? next : prev;
         }, 0);
     },
-    partTwo: (input) => {
+    partTwo: function (input) {
         return input
             .split("\n\n")
-            .map(x => x.split("\n"))
-            .map(val => val.map(x => { return parseInt(x); }))
-            .map(val => val.reduce((prev, next) => {
+            .map(function (x) { return x.split("\n"); })
+            .map(function (val) { return val.map(function (x) { return parseInt(x); }); })
+            .map(function (val) { return val.reduce(function (prev, next) {
             return prev + next;
-        }, 0))
-            .sort((a, b) => b - a)
+        }, 0); })
+            .sort(function (a, b) { return b - a; })
             .splice(0, 3)
-            .reduce((prev, next) => {
+            .reduce(function (prev, next) {
             return prev + next;
         }, 0);
     }
 };
-//# sourceMappingURL=main.js.map

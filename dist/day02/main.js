@@ -1,25 +1,22 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Day02 = void 0;
-exports.Day02 = {
-    partOne: function (input) {
+export const Day02 = {
+    partOne: (input) => {
         return input
             .split("\n")
-            .map(function (line) {
-            var _a = [convertAttack(line[0]), convertDefence(line[2])], attack = _a[0], defence = _a[1];
+            .map(line => {
+            let [attack, defence] = [convertAttack(line[0]), convertDefence(line[2])];
             return scoreForDefence(defence) + resultScore(attack, defence);
         })
-            .reduce(function (prev, next) { return prev + next; }, 0);
+            .reduce((prev, next) => prev + next, 0);
     },
-    partTwo: function (input) {
+    partTwo: (input) => {
         return input
             .split("\n")
-            .map(function (line) {
-            var _a = [convertAttack(line[0]), convertResult(line[2])], attack = _a[0], desiredResult = _a[1];
-            var defence = defenceRequiredForDesiredResult(attack, desiredResult);
+            .map(line => {
+            let [attack, desiredResult] = [convertAttack(line[0]), convertResult(line[2])];
+            let defence = defenceRequiredForDesiredResult(attack, desiredResult);
             return scoreForDefence(defence) + resultScore(attack, defence);
         })
-            .reduce(function (prev, next) { return prev + next; }, 0);
+            .reduce((prev, next) => prev + next, 0);
     }
 };
 function scoreForDefence(defence) {
@@ -124,3 +121,4 @@ function defenceRequiredForDesiredResult(attack, desiredResult) {
             }
     }
 }
+//# sourceMappingURL=main.js.map
