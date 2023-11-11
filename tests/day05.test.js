@@ -38,8 +38,7 @@ function getInput() {
 }
 
 async function asyncGetInput() {
-  const result = await getInput();
-  return result;
+  return await getInput();
 }
 
 beforeAll(async () => {
