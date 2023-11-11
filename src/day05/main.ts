@@ -1,4 +1,4 @@
-import { Utils } from "../helpers/utils.js";
+import { Utils } from "../helpers/utils.ts";
 
 type instruction = {
   amount: number;
@@ -14,8 +14,8 @@ export const Day05 = {
     const cargo = convertInputToCargo(setup);
     const instructionStrings: string[] = splitParts[1].split("\n");
     const instructions: instruction[] = convertInstructions(instructionStrings);
-    console.log("Cargo: ", cargo);
-    console.log("instructions: ", instructions);
+    // console.log("Cargo: ", cargo);
+    // console.log("instructions: ", instructions);
     instructions.forEach((instruction) => {
       runInstruction(cargo, instruction);
     });
@@ -34,12 +34,13 @@ export const Day05 = {
   },
 };
 
-function convertInstructions(input: string[]): instruction[] {
+export function convertInstructions(input: string[]): instruction[] {
   return input.map((line) => {
+    const elements = line.split(" ");
     return {
-      amount: parseInt(line[5]),
-      start: parseInt(line[12]) - 1,
-      end: parseInt(line[17]) - 1,
+      amount: parseInt(elements[1]),
+      start: parseInt(elements[3]) - 1,
+      end: parseInt(elements[5]) - 1,
     };
   });
 }

@@ -1,4 +1,5 @@
-import { Day05, runInstruction } from "../src/day05/main";
+import { readFile } from "../src/helpers/io";
+import { Day05, runInstruction, convertInstructions } from "../src/day05/main";
 
 const inputTest = `    [D]    
 [N] [C]    
@@ -10,11 +11,46 @@ move 3 from 1 to 3
 move 2 from 2 to 1
 move 1 from 1 to 2`;
 
-test("Day 5 Part 1", () => {
-  expect(Day05.partOne(inputTest)).toBe("CMZ");
+const inputTest2 = `    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
+
+move 1 from 2 to 1
+move 33 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2`;
+
+let input = "";
+
+function getInput() {
+  return new Promise((resolve, reject) => {
+    let result = readFile(__dirname + "/", "day05input.txt");
+    result.then(
+      (data) => {
+        resolve(data);
+      },
+      (err) => {
+        reject(`ERROR: ${err}`);
+      },
+    );
+  });
+}
+
+async function asyncGetInput() {
+  const result = await getInput();
+  return result;
+}
+
+beforeAll(async () => {
+  input = await asyncGetInput();
 });
 
-test("Day 5 Part 2", () => {
+test("05-1", () => {
+  expect(Day05.partOne(input)).toBe("ZRLJGSCTR");
+});
+
+test("05-2", () => {
   expect(Day05.partTwo(inputTest)).toBe(0);
 });
 
@@ -26,4 +62,14 @@ test("runUnstruction", () => {
       end: 0,
     }),
   ).toEqual([["Z", "N", "D", "C"], ["M"], ["P"]]);
+});
+
+test("convertInstructions", () => {
+  expect(convertInstructions(["move 1 from 2 to 1"])).toEqual([
+    {
+      amount: 1,
+      start: 1,
+      end: 0,
+    },
+  ]);
 });
