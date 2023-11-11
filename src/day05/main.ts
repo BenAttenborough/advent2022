@@ -7,7 +7,7 @@ type instruction = {
 };
 
 export const Day05 = {
-  partOne: (input: string): number => {
+  partOne: (input: string): string => {
     const splitParts = input.split("\n\n");
     const setup = splitParts[0].split("\n");
     setup.pop();
@@ -15,15 +15,24 @@ export const Day05 = {
     const instructionStrings: string[] = splitParts[1].split("\n");
     const instructions: instruction[] = convertInstructions(instructionStrings);
     console.log("Cargo: ", cargo);
-    return 0;
+    console.log("instructions: ", instructions);
+    instructions.forEach((instruction) => {
+      runInstruction(cargo, instruction);
+    });
+    let finalCargo = "";
+    cargo.forEach((stack) => {
+      let item = stack.pop();
+      if (typeof item === "string") {
+        finalCargo += item;
+      }
+    });
+    return finalCargo;
   },
 
   partTwo: (input: string): number => {
     return 0;
   },
 };
-
-// function runInstructionsOverCargo()
 
 function convertInstructions(input: string[]): instruction[] {
   return input.map((line) => {
@@ -53,3 +62,16 @@ function convertInputToCargo(input: string[]): string[][] {
     return x.filter((value) => value !== "0");
   });
 }
+
+export const runInstruction = (
+  cargo: string[][],
+  instruction: instruction,
+): string[][] => {
+  for (let i = 0; i < instruction.amount; ++i) {
+    const temp: string | undefined = cargo[instruction.start].pop();
+    if (typeof temp === "string") {
+      cargo[instruction.end].push(temp);
+    }
+  }
+  return cargo;
+};
