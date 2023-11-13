@@ -14,8 +14,6 @@ export const Day05 = {
     const cargo = convertInputToCargo(setup);
     const instructionStrings: string[] = splitParts[1].split("\n");
     const instructions: instruction[] = convertInstructions(instructionStrings);
-    // console.log("Cargo: ", cargo);
-    // console.log("instructions: ", instructions);
     instructions.forEach((instruction) => {
       runInstruction(cargo, instruction);
     });
@@ -29,8 +27,24 @@ export const Day05 = {
     return finalCargo;
   },
 
-  partTwo: (input: string): number => {
-    return 0;
+  partTwo: (input: string): string => {
+    const splitParts = input.split("\n\n");
+    const setup = splitParts[0].split("\n");
+    setup.pop();
+    const cargo = convertInputToCargo(setup);
+    const instructionStrings: string[] = splitParts[1].split("\n");
+    const instructions: instruction[] = convertInstructions(instructionStrings);
+    instructions.forEach((instruction) => {
+      runInstruction2(cargo, instruction);
+    });
+    let finalCargo = "";
+    cargo.forEach((stack) => {
+      let item = stack.pop();
+      if (typeof item === "string") {
+        finalCargo += item;
+      }
+    });
+    return finalCargo;
   },
 };
 
@@ -74,5 +88,16 @@ export const runInstruction = (
       cargo[instruction.end].push(temp);
     }
   }
+  return cargo;
+};
+
+export const runInstruction2 = (
+  cargo: string[][],
+  instruction: instruction,
+): string[][] => {
+  let negativeIndex: number = -Math.abs(instruction.amount);
+  let liftedContainers: string[] =
+    cargo[instruction.start].splice(negativeIndex);
+  cargo[instruction.end] = cargo[instruction.end].concat(liftedContainers);
   return cargo;
 };
