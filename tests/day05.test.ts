@@ -52,8 +52,6 @@ test("05-1", () => {
 });
 
 test("05-2", () => {
-  // expect(Day05.partTwo(inputTest)).toBe("MCD");
-
   if (inputResult.isSuccess) {
     expect(Day05.partTwo(inputResult.value)).toBe("PRTTGRFPB");
   } else {

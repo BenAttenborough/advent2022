@@ -8,43 +8,11 @@ type instruction = {
 
 export const Day05 = {
   partOne: (input: string): string => {
-    const splitParts = input.split("\n\n");
-    const setup = splitParts[0].split("\n");
-    setup.pop();
-    const cargo = convertInputToCargo(setup);
-    const instructionStrings: string[] = splitParts[1].split("\n");
-    const instructions: instruction[] = convertInstructions(instructionStrings);
-    instructions.forEach((instruction) => {
-      runInstruction(cargo, instruction);
-    });
-    let finalCargo = "";
-    cargo.forEach((stack) => {
-      let item = stack.pop();
-      if (typeof item === "string") {
-        finalCargo += item;
-      }
-    });
-    return finalCargo;
+    return moveCargo(input, runInstruction);
   },
 
   partTwo: (input: string): string => {
-    const splitParts = input.split("\n\n");
-    const setup = splitParts[0].split("\n");
-    setup.pop();
-    const cargo = convertInputToCargo(setup);
-    const instructionStrings: string[] = splitParts[1].split("\n");
-    const instructions: instruction[] = convertInstructions(instructionStrings);
-    instructions.forEach((instruction) => {
-      runInstruction2(cargo, instruction);
-    });
-    let finalCargo = "";
-    cargo.forEach((stack) => {
-      let item = stack.pop();
-      if (typeof item === "string") {
-        finalCargo += item;
-      }
-    });
-    return finalCargo;
+    return moveCargo(input, runInstruction2);
   },
 };
 
@@ -100,4 +68,30 @@ export const runInstruction2 = (
     cargo[instruction.start].splice(negativeIndex);
   cargo[instruction.end] = cargo[instruction.end].concat(liftedContainers);
   return cargo;
+};
+
+const moveCargo = (
+  input: string,
+  instructionRunner: (
+    cargo: string[][],
+    instruction: instruction,
+  ) => string[][],
+) => {
+  const splitParts = input.split("\n\n");
+  const setup = splitParts[0].split("\n");
+  setup.pop();
+  const cargo = convertInputToCargo(setup);
+  const instructionStrings: string[] = splitParts[1].split("\n");
+  const instructions: instruction[] = convertInstructions(instructionStrings);
+  instructions.forEach((instruction) => {
+    instructionRunner(cargo, instruction);
+  });
+  let finalCargo = "";
+  cargo.forEach((stack) => {
+    let item = stack.pop();
+    if (typeof item === "string") {
+      finalCargo += item;
+    }
+  });
+  return finalCargo;
 };
