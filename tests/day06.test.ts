@@ -25,21 +25,27 @@ let input = "";
 let readSuccess = false;
 let error = "";
 
-let resultType = {
+type result = {
+  isSuccess: Boolean;
+  value: String | null;
+  error: String | null;
+};
+
+let inputResult: result = {
   isSuccess: false,
   value: null,
   error: null,
 };
 
-function getInput() {
+function getInput(): Promise<string> {
   return new Promise((resolve, reject) => {
-    let result = readFile(__dirname + "/", "day05input.txt");
-    result.then(
-      (data) => {
+    let readRead = readFile(__dirname + "/", "day05input.txt");
+    readRead.then(
+      (data: string) => {
         resolve(data);
       },
-      (err) => {
-        reject(`ERROR: ${err}`);
+      (err: string) => {
+        reject(err);
       },
     );
   });
@@ -47,20 +53,23 @@ function getInput() {
 
 beforeAll(async () => {
   try {
-    let temp = await getInput();
-    resultType.isSuccess = true;
-    resultType.value = temp;
+    let temp: string = await getInput();
+    inputResult.isSuccess = true;
+    inputResult.value = temp;
   } catch (err) {
-    resultType.isSuccess = false;
-    resultType.error = err;
+    inputResult.isSuccess = false;
+    let message;
+    if (err instanceof Error) message = err.message;
+    else message = String(error);
+    inputResult.error = message;
   }
 });
 
 test("05-1", () => {
-  if (resultType.isSuccess) {
-    expect(Day05.partOne(resultType.value)).toBe("ZRLJGSCTR");
+  if (inputResult.isSuccess) {
+    expect(Day05.partOne(inputResult.value)).toBe("ZRLJGSCTR");
   } else {
-    console.error(resultType.error);
+    console.error(inputResult.error);
   }
 });
 
