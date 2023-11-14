@@ -1,11 +1,13 @@
 import * as IO from "../helpers/io.ts";
-import { Day06 } from "./main.ts";
+import { Day06, allCharsUnique } from "./main.ts";
 
 let inputResult: IO.result = {
   isSuccess: false,
   value: "",
   error: null,
 };
+
+const testInput = "mjqjpqmgbljsphdztnvjfqwrcgsmlb";
 
 beforeAll(async () => {
   try {
@@ -14,6 +16,16 @@ beforeAll(async () => {
   } catch (err) {
     inputResult = IO.failure(err);
   }
+});
+
+test("06-1-test", () => {
+  const testInput = "mjqjpqmgbljsphdztnvjfqwrcgsmlb";
+  expect(Day06.partOne(testInput)).toBe(7);
+});
+
+test("allCharsUnique", () => {
+  expect(allCharsUnique("abcd")).toBe(true);
+  expect(allCharsUnique("abcb")).toBe(false);
 });
 
 test("06-1", () => {
