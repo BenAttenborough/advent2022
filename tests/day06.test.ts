@@ -1,5 +1,5 @@
-import { readFile } from "../src/helpers/io";
-import { Day05, runInstruction, convertInstructions } from "../src/day05/main";
+import { readFile } from "../src/helpers/io.ts";
+import { Day06 } from "../src/day06/main.ts";
 
 type result = {
   isSuccess: Boolean;
@@ -41,10 +41,13 @@ beforeAll(async () => {
   }
 });
 
+const input = "mjqjpqmgbljsphdztnvjfqwrcgsmlb";
+
 test("06-1", () => {
   // if (inputResult.isSuccess) {
   //   expect(Day05.partOne(inputResult.value)).toBe("ZRLJGSCTR");
   // } else {
   //   console.error(inputResult.error);
   // }
+  expect(Day06.partOne(input)).toBe(7);
 });
