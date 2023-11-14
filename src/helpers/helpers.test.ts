@@ -1,4 +1,4 @@
-import { Utils } from "../src/helpers/utils";
+import { Utils } from "./utils.ts";
 
 test("lines", () => {
   expect(Utils.lines("abc\ndef")).toEqual(["abc", "def"]);

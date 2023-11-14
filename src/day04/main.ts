@@ -3,7 +3,7 @@ export const Day04 = {
     return input
       .split("\n")
       .map((line) => {
-        return line.split(",").map((part) => splitValues(part));
+        return line.split(",").map(splitValues);
       })
       .map(rangeEnclosedByAnother())
       .reduce((prev, next) => prev + next, 0 as number);
@@ -13,7 +13,7 @@ export const Day04 = {
     return input
       .split("\n")
       .map((line) => {
-        return line.split(",").map((part) => splitValues(part));
+        return line.split(",").map(splitValues);
       })
       .map(rangesOverlap())
       .reduce((prev, next) => prev + next, 0 as number);

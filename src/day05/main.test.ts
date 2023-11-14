@@ -1,12 +1,11 @@
-import * as IO from "../src/helpers/io.ts";
-// import { Result } from "../src/helpers/io.ts";
+import * as IO from "../helpers/io.ts";
 
 import {
   Day05,
   runInstruction,
   runInstruction2,
   convertInstructions,
-} from "../src/day05/main.ts";
+} from "./main.ts";
 
 const inputTest = `    [D]    
 [N] [C]    
@@ -36,7 +35,7 @@ let inputResult: IO.result = {
 
 beforeAll(async () => {
   try {
-    let temp: string = await IO.getInput(__dirname, "day05input.txt");
+    let temp: string = await IO.getInput(__dirname, "input.txt");
     inputResult = IO.success(temp);
   } catch (err) {
     inputResult = IO.failure(err);

@@ -1,8 +1,7 @@
-import { Utils } from "../helpers/utils.js";
+import { Utils } from "../helpers/utils.ts";
 
 export const Day01 = {
   partOne: (input: string): number => {
-    console.log("Foo");
     return input
       .split("\n\n")
       .map(Utils.lines)

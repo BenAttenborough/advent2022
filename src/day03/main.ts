@@ -1,58 +1,64 @@
-import { Utils } from "../helpers/utils.js"
+import { Utils } from "../helpers/utils.ts";
 
 export const Day03 = {
-    partOne: (input: string): number => {
-        return input
-            .split("\n")
-            .map(item => priorityOfCommonElementInString(item))
-            .reduce((prev, next) => prev + next, 0);
-    },
+  partOne: (input: string): number => {
+    return input
+      .split("\n")
+      .map((item) => priorityOfCommonElementInString(item))
+      .reduce((prev, next) => prev + next, 0);
+  },
 
-    partTwo: (input: string): number => {
-        let lines = Utils.lines(input);
-        let container = Utils.arrayDivideInto(lines, 3);
-        return container
-            .map(item => getCommonElements(new Set(item[0]), new Set(item[1]), new Set(item[2])))
-            .map(item => convertCharCodeToPriority(item.charCodeAt(0))) // Inefficient to map twice
-            .reduce((prev, next) => prev + next, 0);
+  partTwo: (input: string): number => {
+    let lines = Utils.lines(input);
+    let container = Utils.arrayDivideInto(lines, 3);
+    return container
+      .map((item) => {
+        let commonChar = findCommon3(item[0], item[1], item[2]);
+        return convertCharCodeToPriority(commonChar.charCodeAt(0));
+      })
+      .reduce((prev, next) => prev + next, 0);
+  },
+};
+
+function findMatches(string1: string, string2: string): string {
+  let commonChars = "";
+  for (const char of string1) {
+    if (string2.includes(char)) {
+      commonChars += char;
     }
+  }
+  return commonChars;
+}
+
+function findCommon3(
+  string1: string,
+  string2: string,
+  string3: string,
+): string {
+  let commonFirstTwo = findMatches(string1, string2);
+  return findMatch(commonFirstTwo, string3);
+}
+
+function findMatch(string1: string, string2: string): string {
+  for (const char of string1) {
+    if (string2.includes(char)) {
+      return char;
+    }
+  }
+  return "No match";
 }
 
 function priorityOfCommonElementInString(input: string): number {
-    let bag01 = stringToSetString(input.substring(0, input.length / 2))
-    let bag02 = stringToSetString(input.substring(input.length / 2))
-    let commonElement = findCommonElement(bag01, bag02);
-    return convertCharCodeToPriority(commonElement.charCodeAt(0));
+  let bag01 = input.substring(0, input.length / 2);
+  let bag02 = input.substring(input.length / 2);
+  let commonElement = findMatch(bag01, bag02);
+  return convertCharCodeToPriority(commonElement.charCodeAt(0));
 }
 
 function convertCharCodeToPriority(code: number): number {
-    if (code <= 90) {
-        return code - 38;
-    } else {
-        return code - 96;
-    }
-}
-
-function stringToSetString(input: string): Set<string> {
-    return new Set(Array.from(input));
-}
-
-function findCommonElement(set1: Set<string>, set2: Set<string>): string {
-    let commonElement = "";
-    set1.forEach(item => {
-        if (set2.has(item)) {
-            commonElement = item;
-        }
-    });
-    return commonElement;
-}
-
-function getCommonElements(set1: Set<string>, set2: Set<string>, set3: Set<string>): string {
-    let commonElements = new Set<string>();
-    set1.forEach(item => {
-        if (set2.has(item)) {
-            commonElements.add(item);
-        }
-    });
-    return findCommonElement(commonElements, set3);
+  if (code <= 90) {
+    return code - 38;
+  } else {
+    return code - 96;
+  }
 }
