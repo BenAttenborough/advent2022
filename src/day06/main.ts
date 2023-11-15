@@ -1,7 +1,3 @@
-import { Utils } from "../helpers/utils.ts";
-
-// mjqj
-
 export const Day06 = {
   partOne: (input: string): number => {
     return analyseStingChunks(input, 4);
