@@ -13,7 +13,7 @@ export const Day07 = {
 
     // console.log(result);
     // console.log("Root: ", root);
-    console.log("Directory: ", dir);
+    console.log("Directory: ", returnToRoot(dir));
     return 95437;
   },
 
@@ -21,6 +21,13 @@ export const Day07 = {
     return 0;
   },
 };
+
+function returnToRoot(currentDir: Directory): Directory {
+  if (!currentDir.parent) {
+    return currentDir;
+  }
+  return returnToRoot(currentDir.parent);
+}
 
 function runInstruction(item: Translation, currentDir: Directory): Directory {
   let output = "";
@@ -32,8 +39,11 @@ function runInstruction(item: Translation, currentDir: Directory): Directory {
       const dirName = item.payload || "";
       const children = currentDir.children || new Map();
       if (item.payload === "/") {
-        return currentDir;
+        return returnToRoot(currentDir);
       } else if (item.payload === "..") {
+        if (currentDir.parent) {
+          return currentDir.parent;
+        }
         return currentDir;
       } else {
         if (dirName && children.get(dirName)) {
@@ -46,12 +56,9 @@ function runInstruction(item: Translation, currentDir: Directory): Directory {
       addDirectory(currentDir, item.payload as string, 0);
       return currentDir;
     case "ITEM_FILE":
-      // output = `A file called ${item.filePayload?.label} of size ${item.filePayload?.size}`;
       addFile(currentDir, item.filePayload?.size as number);
       return currentDir;
   }
-  // return output;
-  // console.log(output);
 }
 
 type InstructionList = "LIST";
@@ -112,6 +119,7 @@ export function reportItemType(item: Translation): string {
 type DirectoryMap = Map<string, Directory>;
 
 type Directory = {
+  // label: string;
   size: number;
   children?: DirectoryMap;
   parent?: Directory;
@@ -129,7 +137,21 @@ export function addDirectory(
   return currentDirectory;
 }
 
+function addSizeToParentsWrapper(currentDir: Directory, size: number) {
+  let origin = [];
+
+  function addSizeToParents(currentDir: Directory, size: number): Directory {
+    if (!currentDir.parent) {
+      return currentDir;
+    }
+    currentDir = currentDir.parent;
+    addFile(currentDir, size);
+    return addSizeToParents(currentDir, size);
+  }
+}
+
 export function addFile(currentDirectory: Directory, size: number): Directory {
   currentDirectory.size += size;
+
   return currentDirectory;
 }
