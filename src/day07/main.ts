@@ -1,24 +1,45 @@
 export const Day07 = {
-  partOne: (input: string): number => {
+  partOne: (input: string): string => {
     let dir: Directory = {
-      size: 0,
+      label: "/",
+      size: BigInt(0),
       children: new Map(),
     };
     const result = input.split("\n").map(parseLine);
-    // .forEach((x) => runInstruction(x, root));
-    // const result = input.split("\n").map(parseLine);
     for (let i = 0; i < result.length; ++i) {
       dir = runInstruction(result[i], dir);
     }
+    dir = returnToRoot(dir);
+    // console.log("Directory: ", returnToRoot(dir));
+    // console.log(
+    //   "Directories above 100000: ",
+    //   countDirsAbove(returnToRoot(dir), BigInt(100000)),
+    // );
+    console.log(`Directory size ${dir.size.toString()}`);
 
-    // console.log(result);
-    // console.log("Root: ", root);
-    console.log("Directory: ", returnToRoot(dir));
-    return 95437;
+    const answerBigInt = countDirsAbove(dir, BigInt(100000));
+    return answerBigInt.toString();
   },
 
-  partTwo: (input: string): number => {
-    return 0;
+  partTwo: (input: string): string => {
+    const totalDiskSize = BigInt(70000000);
+    const installSize = BigInt(30000000);
+    let dir: Directory = {
+      label: "/",
+      size: BigInt(0),
+      children: new Map(),
+    };
+    const result = input.split("\n").map(parseLine);
+    for (let i = 0; i < result.length; ++i) {
+      dir = runInstruction(result[i], dir);
+    }
+    dir = returnToRoot(dir);
+    console.log(dir);
+    const roomOnDisk = totalDiskSize - dir.size;
+    console.log(`Directory size ${dir.size.toString()}`);
+    console.log(`Room on disk ${roomOnDisk.toString()}`);
+
+    return "0";
   },
 };
 
@@ -30,10 +51,8 @@ function returnToRoot(currentDir: Directory): Directory {
 }
 
 function runInstruction(item: Translation, currentDir: Directory): Directory {
-  let output = "";
   switch (item.type) {
     case "LIST":
-      output = "The list command";
       return currentDir;
     case "CD":
       const dirName = item.payload || "";
@@ -53,12 +72,30 @@ function runInstruction(item: Translation, currentDir: Directory): Directory {
       }
       return currentDir;
     case "ITEM_DIRECTORY":
-      addDirectory(currentDir, item.payload as string, 0);
+      addDirectory(currentDir, item.payload as string, BigInt(0));
       return currentDir;
     case "ITEM_FILE":
-      addFile(currentDir, item.filePayload?.size as number);
+      addFile(currentDir, item.filePayload?.size as bigint);
       return currentDir;
   }
+}
+
+function countDirsAbove(rootDir: Directory, fileSize: bigint) {
+  let directoriesAboveSize: bigint = BigInt(0);
+  directoryWalker(rootDir);
+
+  function directoryWalker(currentDir: Directory) {
+    if (currentDir.size <= fileSize) {
+      directoriesAboveSize += currentDir.size;
+    }
+    if (!currentDir.children) {
+      return currentDir;
+    }
+    for (const child of currentDir.children.values()) {
+      directoryWalker(child);
+    }
+  }
+  return directoriesAboveSize;
 }
 
 type InstructionList = "LIST";
@@ -67,7 +104,7 @@ type InstructionCDValue = string;
 type ItemDirectory = "ITEM_DIRECTORY";
 type ItemDirectoryValue = string;
 type ItemFile = "ITEM_FILE";
-type ItemFileValue = { size: number; label: string };
+type ItemFileValue = { size: bigint; label: string };
 
 type ItemType = InstructionList | InstructionCD | ItemDirectory | ItemFile;
 type PayloadType = InstructionCDValue | ItemDirectoryValue | ItemFileValue;
@@ -75,7 +112,7 @@ type PayloadType = InstructionCDValue | ItemDirectoryValue | ItemFileValue;
 type Translation = {
   type: ItemType;
   payload?: PayloadType;
-  filePayload?: { size: number; label: string };
+  filePayload?: { size: bigint; label: string };
 };
 
 export function parseLine(line: string): Translation {
@@ -92,10 +129,13 @@ export function parseLine(line: string): Translation {
       return { type: "ITEM_DIRECTORY", payload: line.slice(4) };
     } else {
       const elements = line.split(" ");
+      console.log(`item name: ${elements[1]} size: ${elements[0]}`);
+      // let sizeAsInt = parseInt(elements[0]) || 0;
+      let sizeAsInt = parseInt(elements[0]) || 0;
       return {
         type: "ITEM_FILE",
         filePayload: {
-          size: parseInt(elements[0]),
+          size: BigInt(sizeAsInt),
           label: elements[1],
         },
       };
@@ -119,8 +159,8 @@ export function reportItemType(item: Translation): string {
 type DirectoryMap = Map<string, Directory>;
 
 type Directory = {
-  // label: string;
-  size: number;
+  label: string;
+  size: bigint;
   children?: DirectoryMap;
   parent?: Directory;
 };
@@ -128,30 +168,41 @@ type Directory = {
 export function addDirectory(
   currentDirectory: Directory,
   name: string,
-  size: number,
+  size: bigint,
 ): Directory {
   if (!currentDirectory.children) {
     currentDirectory.children = new Map();
   }
-  currentDirectory.children.set(name, { size: size, parent: currentDirectory });
+  currentDirectory.children.set(name, {
+    label: name,
+    size: size,
+    parent: currentDirectory,
+  });
   return currentDirectory;
 }
 
-function addSizeToParentsWrapper(currentDir: Directory, size: number) {
-  let origin = [];
+function addSizeToParentsWrapper(currentDir: Directory, size: bigint) {
+  let origin: string[] = [];
+  addSizeToParents(currentDir, size);
 
-  function addSizeToParents(currentDir: Directory, size: number): Directory {
+  function addSizeToParents(currentDir: Directory, size: bigint): Directory {
     if (!currentDir.parent) {
       return currentDir;
     }
+    origin.unshift(currentDir.label);
     currentDir = currentDir.parent;
-    addFile(currentDir, size);
+    currentDir.size += size;
+
     return addSizeToParents(currentDir, size);
   }
+
+  origin.forEach((dir) =>
+    runInstruction({ type: "CD", payload: dir }, currentDir),
+  );
 }
 
-export function addFile(currentDirectory: Directory, size: number): Directory {
+export function addFile(currentDirectory: Directory, size: bigint): Directory {
   currentDirectory.size += size;
-
+  addSizeToParentsWrapper(currentDirectory, size);
   return currentDirectory;
 }
