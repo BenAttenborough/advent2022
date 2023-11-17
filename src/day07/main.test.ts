@@ -1,5 +1,5 @@
 import * as IO from "../helpers/io.ts";
-import { Day07 } from "./main.ts";
+import { Day07, addDirectory, parseLine } from "./main.ts";
 
 let inputResult: IO.result = {
   isSuccess: false,
@@ -31,7 +31,24 @@ beforeAll(async () => {
   }
 });
 
-test("06-1a", () => {
+test("parseLine", () => {
+  expect(parseLine("$ ls")).toEqual({ type: "LIST" });
+  expect(parseLine("$ cd foo")).toEqual({ type: "CD", payload: "foo" });
+  expect(parseLine("dir e")).toEqual({ type: "ITEM_DIRECTORY", payload: "e" });
+  expect(parseLine("1000 file.txt")).toEqual({
+    type: "ITEM_FILE",
+    filePayload: {
+      size: 1000,
+      label: "file.txt",
+    },
+  });
+});
+
+// test("addDirectory", () => {
+//   expect(addDirectory({ size: 0 }, "foo", 5)).toBe({});
+// });
+
+test("07-1", () => {
   if (inputResult.isSuccess) {
     expect(Day07.partOne(inputResultTest.value)).toBe(95437);
   } else {
