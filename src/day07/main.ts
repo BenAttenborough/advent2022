@@ -15,7 +15,7 @@ export const Day07 = {
     //   "Directories above 100000: ",
     //   countDirsAbove(returnToRoot(dir), BigInt(100000)),
     // );
-    console.log(`Directory size ${dir.size.toString()}`);
+    // console.log(`Directory size ${dir.size.toString()}`);
 
     const answerBigInt = countDirsAbove(dir, BigInt(100000));
     return answerBigInt.toString();
@@ -34,12 +34,10 @@ export const Day07 = {
       dir = runInstruction(result[i], dir);
     }
     dir = returnToRoot(dir);
-    console.log(dir);
     const roomOnDisk = totalDiskSize - dir.size;
-    console.log(`Directory size ${dir.size.toString()}`);
-    console.log(`Room on disk ${roomOnDisk.toString()}`);
+    const spaceRequireToClear = installSize - roomOnDisk;
 
-    return "0";
+    return partTwoCount(dir, spaceRequireToClear).toString();
   },
 };
 
@@ -98,6 +96,33 @@ function countDirsAbove(rootDir: Directory, fileSize: bigint) {
   return directoriesAboveSize;
 }
 
+function partTwoCount(rootDir: Directory, sizeNeeded: bigint) {
+  let directoriesAboveSize: bigint[] = [];
+  directoryWalker(rootDir);
+
+  function directoryWalker(currentDir: Directory) {
+    if (currentDir.size >= sizeNeeded) {
+      directoriesAboveSize.push(currentDir.size);
+    }
+    if (!currentDir.children) {
+      return currentDir;
+    }
+    for (const child of currentDir.children.values()) {
+      directoryWalker(child);
+    }
+  }
+  const sortedDirectoriesAboveSize = directoriesAboveSize.sort((a, b) => {
+    if (a > b) {
+      return 1;
+    } else if (a < b) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+  return sortedDirectoriesAboveSize[0];
+}
+
 type InstructionList = "LIST";
 type InstructionCD = "CD";
 type InstructionCDValue = string;
@@ -129,7 +154,7 @@ export function parseLine(line: string): Translation {
       return { type: "ITEM_DIRECTORY", payload: line.slice(4) };
     } else {
       const elements = line.split(" ");
-      console.log(`item name: ${elements[1]} size: ${elements[0]}`);
+      // console.log(`item name: ${elements[1]} size: ${elements[0]}`);
       // let sizeAsInt = parseInt(elements[0]) || 0;
       let sizeAsInt = parseInt(elements[0]) || 0;
       return {
