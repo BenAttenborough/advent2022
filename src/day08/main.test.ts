@@ -42,7 +42,8 @@ beforeAll(async () => {
 test("07 Find visible trees in row", () => {
   //   findVisibleTrees("30373");
   //   findVisibleTrees("3037321");
-  findVisibleTrees("3039321");
+  //   findVisibleTrees("3039321");
+  findVisibleTrees("30398899998888889321");
 
   expect(1).toBe(1);
   //   expect(findVisibleTrees("30373")).toEqual([0, 3, 4]);

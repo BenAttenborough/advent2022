@@ -17,7 +17,9 @@ But we can be more efficient. In the above example we don't
 need to go all the way through the array twice.
 On the way back we can stop at the last seen tree (location 2)
 
-TODO: On the way from l to r, stop if we find a tree of max height
+This algo is trying to be efficient
+Given the string of "30398899998888889321"
+We only need to look at the first four numbers and the last four numbers since all other numbers are hidden
 */
 export function findVisibleTrees(trees: string): number[] {
   // For performance checking
@@ -26,12 +28,13 @@ export function findVisibleTrees(trees: string): number[] {
   let heighestTree = 0;
   let visibleTreeIndexes: number[] = [];
   for (let i = 0; i < trees.length; ++i) {
-    if (parseInt(trees[i]) === TREE_MAX_HEIGHT) {
+    const currentTreeHeight = parseInt(trees[i]);
+    if (currentTreeHeight === TREE_MAX_HEIGHT) {
       visibleTreeIndexes.push(i);
       treesChecked++;
       break;
     }
-    compareHeights(i);
+    compareHeights(i, currentTreeHeight);
   }
   // If the last entry in visibleTreeIndexes is the same as trees.length
   // we don't need to go from r to l
@@ -41,20 +44,21 @@ export function findVisibleTrees(trees: string): number[] {
     return visibleTreeIndexes;
   }
   for (let i = trees.length; i > lastSeenTreeIndex + 1; --i) {
-    if (parseInt(trees[i]) === TREE_MAX_HEIGHT) {
+    const currentTreeHeight = parseInt(trees[i]);
+
+    if (currentTreeHeight === TREE_MAX_HEIGHT) {
       visibleTreeIndexes.push(i);
       treesChecked++;
       break;
     }
-    compareHeights(i);
+    compareHeights(i, currentTreeHeight);
   }
   console.log(
     `Given the trees "${trees}" \n Visible tree indexes ${visibleTreeIndexes} \n Last seen tree index ${lastSeenTreeIndex} \n Trees checked ${treesChecked}`,
   );
   return visibleTreeIndexes;
 
-  function compareHeights(i: number) {
-    const currentTreeHeight = parseInt(trees[i]);
+  function compareHeights(i: number, currentTreeHeight: number) {
     if (currentTreeHeight > heighestTree) {
       heighestTree = currentTreeHeight;
       visibleTreeIndexes.push(i);
