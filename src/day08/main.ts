@@ -10,6 +10,20 @@ export const Day08 = {
 
 const TREE_MAX_HEIGHT = 9;
 
+export function findVisibleTreesInRows(trees: string[]): number[][][] {
+  const length = trees[0].length;
+  const height = trees.length;
+  let horizontalVisibleTrees = [];
+  let row = [];
+  for (let i = 0; i < height; ++i) {
+    row.push(findVisibleTreesInRow(trees[i]));
+  }
+  horizontalVisibleTrees.push(row);
+  console.log(`horizontalVisibleTrees: ${horizontalVisibleTrees}`);
+  console.log([0, 1], [0, 2]);
+  return horizontalVisibleTrees;
+}
+
 /* 
 1 1 2 1 1 
 Need to move l to r and r to l to get all trees 
@@ -21,10 +35,9 @@ This algo is trying to be efficient
 Given the string of "30398899998888889321"
 We only need to look at the first four numbers and the last four numbers since all other numbers are hidden
 */
-export function findVisibleTrees(trees: string): number[] {
+export function findVisibleTreesInRow(trees: string): number[] {
   // For performance checking
   let treesChecked = 0;
-
   let heighestTree = 0;
   let visibleTreeIndexes: number[] = [];
   for (let i = 0; i < trees.length; ++i) {
