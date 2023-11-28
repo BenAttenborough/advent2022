@@ -3,6 +3,8 @@ import {
   Day08,
   findVisibleTreesInRow,
   findVisibleTreesInRows,
+  applyToCols,
+  findVisibleTreesInCols,
 } from "./main.ts";
 
 let inputResult: IO.result = {
@@ -46,12 +48,14 @@ beforeAll(async () => {
 test("07 Find visible trees in row", () => {
   //   findVisibleTrees("30373");
   //   findVisibleTrees("3037321");
-  //   findVisibleTrees("3039321");
+  //   findVisibleTreesInRow("3039321");
   // findVisibleTreesInRow("30398899998888889321");
   const testTrees = "30373\n25512\n65332\n33549\n35390";
   const input = testTrees.split("\n");
 
-  findVisibleTreesInRows(input);
+  //   findVisibleTreesInRows(input);
+  findVisibleTreesInCols(input);
+  //   applyToCols(input, (a) => a);
 
   // findVisibleTreesInRow("30398899998888889321");
 
