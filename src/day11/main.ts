@@ -1,12 +1,12 @@
 export const Day11 = {
   partOne: (input: string): number => {
     // console.log(input);
-    const result = input
+    const instructions = input
       .split("\n\n")
-      .map((x) => x.split("\n").map((x) => x.trim()));
-    // console.log(result);
-    const x = convertInstructions(result[1]);
-    console.log(x);
+      .map((x) => x.split("\n").map((x) => x.trim()))
+      .map(convertInstructions);
+
+    console.log(instructions);
     return 0;
   },
 
@@ -26,6 +26,7 @@ type InstructionSet = {
   divideByTest: number;
   trueMonkey: number;
   falseMonkey: number;
+  numberInspected: number;
 };
 
 function convertInstructions(input: string[]): InstructionSet {
@@ -42,9 +43,6 @@ function convertInstructions(input: string[]): InstructionSet {
     operationOperator = "MULTIPLY";
     operationValue = Number(input[2].slice(23));
   }
-  // console.log(
-  //   `operationOperator: ${operationOperator}, operationValue: ${operationValue}`,
-  // );
   const divideBy = Number(input[3].slice(19));
   const trueMonkey = Number(input[4].slice(25));
   const falseMonkey = Number(input[5].slice(26));
@@ -57,5 +55,6 @@ function convertInstructions(input: string[]): InstructionSet {
     divideByTest: divideBy,
     trueMonkey: trueMonkey,
     falseMonkey: falseMonkey,
+    numberInspected: 0,
   };
 }
