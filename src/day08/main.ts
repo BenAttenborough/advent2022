@@ -1,5 +1,3 @@
-import { Utils } from "../helpers/utils.ts";
-
 export const Day08 = {
   partOne: (input: string): number => {
     return main(input);
